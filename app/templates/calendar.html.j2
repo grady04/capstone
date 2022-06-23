@@ -1,0 +1,21 @@
+{% extends 'base.html.j2' %}
+{% block css %}
+<link  rel="stylesheet"  href="{{ url_for('static',  filename='css/template.css') }}">
+{% endblock %}
+{% block title %}
+    Calendar
+{% endblock %}
+    {% block content %}
+        <title>Upcoming Schedule</title>
+        <h1>Here's what you got lined up!</h1>
+            <div id="list">
+                <ul>
+                {% for event in events %}
+                <li>
+                    {% include './includes/_event.html.j2' %}
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+            
+    {% endblock %}

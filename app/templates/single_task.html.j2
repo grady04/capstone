@@ -1,0 +1,8 @@
+{% extends 'base.html.j2' %}
+{% block title %}
+    {{task.author.first_name}}
+{% endblock %}
+
+{% block content %}
+    {% include 'includes/_task.html.j2' %}
+{% endblock %}

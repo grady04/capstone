@@ -1,0 +1,55 @@
+{% block css %}
+    <link  rel="stylesheet"  href="{{ url_for('static',  filename='css/nav.css') }}">
+{% endblock %}
+    <nav class="navbar navbar-expand-lg navbar-light">
+    <div id="navbar" class="container-fluid">
+        {% if current_user.is_authenticated %}
+        <a class="navbar-brand text-light" href="#">{{current_user.ranch_name}}</a>
+        {% else %}
+        <a class="navbar-brand text-light" href="#">Saddle Map</a>
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                {% if current_user.is_authenticated %}
+                <a class="nav-link text-light" href="{{url_for('main.tasks')}}">Task List</a>
+                <a class="nav-link text-light" href="{{url_for('api.calendar')}}">Calendar</a>
+                {% else %}
+                <a class="nav-link text-light" href="{{url_for('auth.login')}}">Login</a>
+                <a class="nav-link text-light" href="{{url_for('auth.register')}}">Register</a>
+                {% endif %}
+            </div>
+                {% if current_user.is_authenticated %}
+                <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <div class="col-12">
+                        <div class="btn-group dropstart">
+                            <a class="btn btn-clear dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-plus-lg"></i>
+                            </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{url_for('main.create_task')}}">Create Task</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('main.create_urgent_task')}}">Create Urgent Task</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('main.create_daily_task')}}">Create Daily Task</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="row">
+                        <div class="col-12">    
+                            <a class="nav-link text-light" href="{{url_for('auth.edit_profile')}}"><i class="bi bi-gear-fill"></i></a>
+                        </div>
+                        <div class="col-12">
+                            <a class="nav-link text-light" href="{{url_for('auth.logout')}}"><i class="bi bi-box-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </li>
+                </ul>
+                {% endif %}
+
+        </div>
+    </div>
+    </nav>

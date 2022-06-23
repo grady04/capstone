@@ -1,0 +1,52 @@
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      {% if task.author.urgent %}
+        <
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{task.author.first_name}} {{task.author.last_name}} posted: </h5>
+        
+        {% if view_all %}
+            <p class="card-text">{{task.body}}</p>
+        {% else %}
+            <p class="card-text">{{task.body | truncate(100)}}</p>
+        {% endif %}
+
+        <br/>
+        {% for comment in task.comments %}
+          {{comment.text}}
+        {% endfor %}
+        <br/>
+
+        <form class="input-group mb-3" method="POST" action="{{url_for('main.comment_task', id=task.id)}}">
+          <input type="text" id="text" name="text" class="form-control" placeholder="Comment here"/>
+          <button type="submit" class="btn btn-primary">Comment</button>
+        </form>
+
+        <small><a href="{{url_for('main.get_task', id=task.id)}}">Full Task</a></small>
+      
+        {% if current_user.id == task.author.id  %}
+          <small><a href="{{url_for('main.edit_task', id=task.id)}}">Edit</a></small>
+          <small><a href="{{url_for('main.resolve_task', id=task.id)}}">Resolve</a></small>
+
+        {% endif %}
+
+      {# 'value if true ' if condition else 'value if false' #}
+
+        <p class="card-text"><small class="text-muted">
+        {{moment(task.date_created).fromNow()}}
+        <span class="float-end" style="color:lightcoral">
+         {{'edited:' + moment(task.date_updated).fromNow() | string() if task.date_updated else '' }}
+        </span>
+
+        </small></p>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+{% extends 'base.html.j2' %}
+{% block title %}
+    Create Urgent Task
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" action="{{url_for('main.create_urgent_task')}}">
+    <br/>
+    <div class="mb-3">
+        <textarea class="form-control" placeholder="Add Task" name="body" style="height: 100px;"></textarea>
+    </div>
+    <button type="submit" class="btn btn-secondary">Create Urgent Task</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% if task.urgent == true %}
+<div class="card text-center bg-danger" style="width: 50rem;">
+{% elif task.completed == true %}
+<div class="card text-center bg-warning" style="width: 50rem;">
+{% elif task.daily == true and task.completed == false%}
+<div class="card text-center bg-success" style="width: 50rem;">
+{% else %}
+<div class="card text-center bg-secondary" style="width: 50rem;">
+{% endif %}
+
+  <h5 class="card-header text-center bg-dark text-white">
+    {{task.body}}
+  </h5>
+
+
+  <div class="card-body">
+      <img src="{{url_for('static', filename='images/sample_map.webp')}}">
+
+      <br/>
+      <form class="input-group mb-3" method="POST" action="{{url_for('main.comment_task', id=task.id)}}">
+        <input type="text" id="text" name="text" class="form-control" placeholder="Comment here"/>
+        <button type="submit" class="btn btn-dark">Comment</button>
+      </form>
+
+      <small><a href="{{url_for('main.get_task', id=task.id)}}" class="btn btn-dark">Full Task</a></small>
+    
+    {% if current_user.id == task.author.id  %}
+          <small><a href="{{url_for('main.edit_task', id=task.id)}}" class="btn btn-dark">Edit</a></small>
+          {% if task.daily == true %}
+            <small><a href="{{url_for('main.resolve_task', id=task.id)}}"class="btn btn-dark">Delete</a></small>
+            <small><a href="{{url_for('main.resolve_daily_task', id=task.id)}}"class="btn btn-dark"><i class="bi bi-check-lg"></i></a></small>
+
+          {% else %}
+            <small><a href="{{url_for('main.resolve_task', id=task.id)}}"class="btn btn-dark"><i class="bi bi-check-lg"></i>Resolve</a></small>
+          {% endif %}
+    {% endif %}
+
+    <br/>
+    {% if task.comments %}
+
+      {% for comment in task.comments %}
+        <div class="card">
+          <div class="card-body text white">
+            {{comment.text}}
+          </div>
+          <br/>
+        </div>
+      {% endfor %}
+
+    {% endif %}
+
+        
+  </div>
+  <div class="card-footer text-light bg-dark">
+    {{moment(task.date_created).fromNow()}}
+  </div>
+</div>
+<br/>

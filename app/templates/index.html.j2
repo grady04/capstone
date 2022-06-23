@@ -1,0 +1,23 @@
+{% extends 'base.html.j2' %}
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block content %}
+    <br/>
+    {# put tasks here #}
+    <div class="text-center">
+        {% for task in tasks %}
+            {% if task.urgent == true %}
+                {% include './includes/_task.html.j2' %}
+            {% endif %}
+        {% endfor %}
+        {% for task in tasks %}
+            {% if task.urgent == false %}
+                {% include './includes/_task.html.j2' %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+
+{% endblock %}

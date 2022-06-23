@@ -1,0 +1,16 @@
+{% extends 'base.html.j2' %}
+{% block title %}
+    Edit Task
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" action="">
+    <br/>
+    <div class="mb-3">
+        <textarea class="form-control" placeholder="New task?" name="body" style="height: 100px;"></textarea>
+    </div>
+    <button type="submit" class="btn btn-secondary">Submit Edit</button>
+</form>
+
+{% endblock %}
